@@ -56,13 +56,14 @@ export function Navbar() {
         <div className="hidden items-center gap-1 md:flex">
           {navItems.map((it) =>
             it.hash ? (
-              <a
+              <button
                 key={it.label}
-                href={it.hash}
+                type="button"
+                onClick={() => goToHash(it.hash!)}
                 className="rounded-md px-3 py-2 text-sm font-medium text-foreground/70 transition-colors hover:text-foreground"
               >
                 {it.label}
-              </a>
+              </button>
             ) : (
               <Link
                 key={it.label}
