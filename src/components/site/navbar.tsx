@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Leaf, Menu, Moon, Sun, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,8 +7,8 @@ import { useAuth } from "@/hooks/use-auth";
 
 const navItems = [
   { label: "Beranda", to: "/", hash: undefined },
-  { label: "Fitur", to: "/", hash: "#fitur" },
   { label: "Cara Kerja", to: "/", hash: "#cara-kerja" },
+  { label: "Fitur", to: "/", hash: "#fitur" },
   { label: "Demo", to: "/", hash: "#demo" },
   { label: "Edukasi", to: "/articles", hash: undefined },
 ];
