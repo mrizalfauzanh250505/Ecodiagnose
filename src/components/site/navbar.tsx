@@ -117,14 +117,17 @@ export function Navbar() {
           <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4">
             {navItems.map((it) =>
               it.hash ? (
-                <a
+                <button
                   key={it.label}
-                  href={it.hash}
-                  onClick={() => setOpen(false)}
-                  className="rounded-md px-3 py-2 text-sm font-medium"
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    goToHash(it.hash!);
+                  }}
+                  className="rounded-md px-3 py-2 text-left text-sm font-medium"
                 >
                   {it.label}
-                </a>
+                </button>
               ) : (
                 <Link
                   key={it.label}
