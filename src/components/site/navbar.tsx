@@ -16,8 +16,21 @@ const navItems = [
 export function Navbar() {
   const { theme, toggle } = useTheme();
   const { user } = useAuth();
+  const navigate = useNavigate();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const goToHash = (hash: string) => {
+    const id = hash.replace("#", "");
+    if (pathname === "/") {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      history.replaceState(null, "", `/${hash}`);
+    } else {
+      navigate({ to: "/", hash: id });
+    }
+  };
+
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
