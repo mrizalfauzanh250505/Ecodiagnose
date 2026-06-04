@@ -14,7 +14,96 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      bookmarks: {
+        Row: {
+          article_slug: string
+          created_at: string
+          id: string
+          user_id: string
+        }
+        Insert: {
+          article_slug: string
+          created_at?: string
+          id?: string
+          user_id: string
+        }
+        Update: {
+          article_slug?: string
+          created_at?: string
+          id?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          avatar_url: string | null
+          created_at: string
+          full_name: string | null
+          id: string
+          updated_at: string
+        }
+        Insert: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id: string
+          updated_at?: string
+        }
+        Update: {
+          avatar_url?: string | null
+          created_at?: string
+          full_name?: string | null
+          id?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      scans: {
+        Row: {
+          confidence: number
+          created_at: string
+          damage_level: number
+          diagnosis: string
+          id: string
+          image_url: string
+          plant_name: string
+          prevention: Json
+          raw_json: Json | null
+          status: Database["public"]["Enums"]["plant_health_status"]
+          treatment: Json
+          user_id: string
+        }
+        Insert: {
+          confidence?: number
+          created_at?: string
+          damage_level?: number
+          diagnosis: string
+          id?: string
+          image_url: string
+          plant_name: string
+          prevention?: Json
+          raw_json?: Json | null
+          status: Database["public"]["Enums"]["plant_health_status"]
+          treatment?: Json
+          user_id: string
+        }
+        Update: {
+          confidence?: number
+          created_at?: string
+          damage_level?: number
+          diagnosis?: string
+          id?: string
+          image_url?: string
+          plant_name?: string
+          prevention?: Json
+          raw_json?: Json | null
+          status?: Database["public"]["Enums"]["plant_health_status"]
+          treatment?: Json
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -23,7 +112,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      plant_health_status: "sehat" | "ringan" | "sedang" | "berat"
     }
     CompositeTypes: {
       [_ in never]: never
@@ -150,6 +239,8 @@ export type CompositeTypes<
 
 export const Constants = {
   public: {
-    Enums: {},
+    Enums: {
+      plant_health_status: ["sehat", "ringan", "sedang", "berat"],
+    },
   },
 } as const
