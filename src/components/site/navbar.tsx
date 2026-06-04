@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState, useNavigate } from "@tanstack/react-router";
 import { useEffect, useState } from "react";
 import { Leaf, Menu, Moon, Sun, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,8 +7,8 @@ import { useAuth } from "@/hooks/use-auth";
 
 const navItems = [
   { label: "Beranda", to: "/", hash: undefined },
-  { label: "Fitur", to: "/", hash: "#fitur" },
   { label: "Cara Kerja", to: "/", hash: "#cara-kerja" },
+  { label: "Fitur", to: "/", hash: "#fitur" },
   { label: "Demo", to: "/", hash: "#demo" },
   { label: "Edukasi", to: "/articles", hash: undefined },
 ];
@@ -16,8 +16,21 @@ const navItems = [
 export function Navbar() {
   const { theme, toggle } = useTheme();
   const { user } = useAuth();
+  const navigate = useNavigate();
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+
+  const goToHash = (hash: string) => {
+    const id = hash.replace("#", "");
+    if (pathname === "/") {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      history.replaceState(null, "", `/${hash}`);
+    } else {
+      navigate({ to: "/", hash: id });
+    }
+  };
+
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -43,13 +56,14 @@ export function Navbar() {
         <div className="hidden items-center gap-1 md:flex">
           {navItems.map((it) =>
             it.hash ? (
-              <a
+              <button
                 key={it.label}
-                href={it.hash}
+                type="button"
+                onClick={() => goToHash(it.hash!)}
                 className="rounded-md px-3 py-2 text-sm font-medium text-foreground/70 transition-colors hover:text-foreground"
               >
                 {it.label}
-              </a>
+              </button>
             ) : (
               <Link
                 key={it.label}
@@ -103,14 +117,17 @@ export function Navbar() {
           <div className="mx-auto flex max-w-7xl flex-col gap-2 px-4 py-4">
             {navItems.map((it) =>
               it.hash ? (
-                <a
+                <button
                   key={it.label}
-                  href={it.hash}
-                  onClick={() => setOpen(false)}
-                  className="rounded-md px-3 py-2 text-sm font-medium"
+                  type="button"
+                  onClick={() => {
+                    setOpen(false);
+                    goToHash(it.hash!);
+                  }}
+                  className="rounded-md px-3 py-2 text-left text-sm font-medium"
                 >
                   {it.label}
-                </a>
+                </button>
               ) : (
                 <Link
                   key={it.label}
