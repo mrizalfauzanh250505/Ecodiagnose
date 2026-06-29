@@ -10,6 +10,7 @@ const navItems = [
   { label: "Cara Kerja", to: "/", hash: "#cara-kerja" },
   { label: "Fitur", to: "/", hash: "#fitur" },
   { label: "Demo", to: "/", hash: "#demo" },
+  { label: "Riwayat Demo", to: "/demo-history", hash: undefined },
   { label: "Edukasi", to: "/articles", hash: undefined },
 ];
 

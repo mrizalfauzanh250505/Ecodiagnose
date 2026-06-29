@@ -18,6 +18,7 @@ import { Progress } from "@/components/ui/progress";
 import { Badge } from "@/components/ui/badge";
 import { analyzeAndSaveScan, analyzeScanPublic, type AnalysisResult } from "@/lib/scans.functions";
 import { useAuth } from "@/hooks/use-auth";
+import { addDemoHistory } from "@/lib/demo-history";
 
 const statusMap = {
   sehat: { label: "Sehat", className: "bg-success text-success-foreground", icon: CheckCircle2 },
@@ -103,7 +104,14 @@ export function ScannerCard({ allowSave = true }: { allowSave?: boolean }) {
       setProgress(100);
       const final = "result" in data ? data.result : (data as AnalysisResult);
       setResult(final);
+      // Always save demo results locally (for both guests & logged-in demo runs)
+      try {
+        addDemoHistory({ image_url: preview, result: final });
+      } catch {
+        // ignore storage errors
+      }
       if (user && allowSave) toast.success("Analisis disimpan ke riwayat");
+      else toast.success("Hasil disimpan ke Riwayat Demo");
     } catch (e) {
       toast.error(e instanceof Error ? e.message : "Analisis gagal");
     } finally {
