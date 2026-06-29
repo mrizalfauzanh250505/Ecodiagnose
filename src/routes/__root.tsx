@@ -94,6 +94,12 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "EcoScan AI — Deteksi Penyakit Tanaman dengan AI" },
+      { name: "description", content: "EcoScan AI is a web app that identifies plant diseases from photos, offering AI-driven diagnoses and care advice." },
+      { property: "og:description", content: "EcoScan AI is a web app that identifies plant diseases from photos, offering AI-driven diagnoses and care advice." },
+      { name: "twitter:description", content: "EcoScan AI is a web app that identifies plant diseases from photos, offering AI-driven diagnoses and care advice." },
+      { property: "og:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5bf75743-d029-45d0-a99a-b2de61ce7d68/id-preview-0ccfe7dd--b64036fe-692c-4c84-975f-cf7bace2b47b.lovable.app-1782732314109.png" },
+      { name: "twitter:image", content: "https://pub-bb2e103a32db4e198524a2e9ed8f35b4.r2.dev/5bf75743-d029-45d0-a99a-b2de61ce7d68/id-preview-0ccfe7dd--b64036fe-692c-4c84-975f-cf7bace2b47b.lovable.app-1782732314109.png" },
     ],
     links: [
       { rel: "stylesheet", href: appCss },
