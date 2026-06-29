@@ -107,6 +107,11 @@ async function callLovableAI(imageDataUrl: string): Promise<AnalysisResult> {
   const toolCall = data?.choices?.[0]?.message?.tool_calls?.[0];
   if (!toolCall) throw new Error("AI tidak mengembalikan diagnosis terstruktur");
   const args = JSON.parse(toolCall.function.arguments);
+  // Normalisasi: model kadang mengembalikan 0-1, ubah ke skala 0-100
+  if (typeof args.confidence === "number" && args.confidence <= 1) args.confidence *= 100;
+  if (typeof args.damage_level === "number" && args.damage_level <= 1) args.damage_level *= 100;
+  args.confidence = Math.max(0, Math.min(100, Number(args.confidence) || 0));
+  args.damage_level = Math.max(0, Math.min(100, Number(args.damage_level) || 0));
   return AnalysisSchema.parse(args);
 }
 
